@@ -1,112 +1,83 @@
-# 🚀 EVAKIN (Evaluasi Kinerja)
-### Sistem Evaluasi Kinerja PPPK Paruh Waktu
+# EVAKIN - Evaluasi Kinerja Daerah
 
-![Banner EVAKIN](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
+EVAKIN adalah sistem manajemen evaluasi kinerja bulanan untuk pegawai PPPK Paruh Waktu yang modern, cepat, dan efisien. Dilengkapi dengan sistem notifikasi WhatsApp otomatis mandiri untuk memastikan setiap pegawai mendapatkan informasi hasil evaluasi secara real-time.
 
-**EVAKIN** adalah platform manajemen kinerja modern yang dirancang khusus untuk mengelola, memantau, dan mengevaluasi kinerja Pegawai Pemerintah dengan Perjanjian Kerja (PPPK) Paruh Waktu di lingkungan organisasi Anda.
+![EVAKIN Banner](https://raw.githubusercontent.com/ridyko/Evaluasi-Kinerja-PPPK-Paruh-Waktu/main/public/img/banner.png)
 
----
+## 🚀 Fitur Utama
 
-## ✨ Fitur Utama
+- **Dashboard Modern**: Visualisasi data kinerja yang bersih dan intuitif.
+- **Manajemen Pegawai**: Pengelolaan data pegawai lengkap dengan struktur jabatan.
+- **Evaluasi Bulanan**: Input nilai kinerja (Hasil Kerja & Perilaku) yang akurat.
+- **Export Laporan**: Cetak hasil evaluasi ke format PDF dan Excel.
+- **WhatsApp Gateway (Self-Hosted)**:
+    - Notifikasi otomatis saat finalisasi evaluasi.
+    - Manajemen layanan langsung dari dashboard (Start/Stop/Reset).
+    - Tampilan QR Code interaktif untuk sinkronisasi perangkat.
+    - Riwayat pengiriman notifikasi (Status Terkirim/Gagal).
+    - Fitur Kirim Ulang (Resend) notifikasi.
+- **White-Label Branding**: Ubah Nama Organisasi, Logo, dan Favicon langsung dari pengaturan.
 
-- **🛡️ Manajemen Akses Berbasis Peran (RBAC)**: Mendukung peran Admin, Pejabat Penilai, dan Pegawai dengan hak akses yang tersegregasi.
-- 🏢 **White-Label Ready**: Ubah nama instansi, slogan, dan logo tanpa menyentuh kode.
-- ⚙️ **Dynamic Settings**: Panel pengaturan sistem untuk Administrator (Nama Aplikasi, Organisasi, Logo, Favicon, & Footer).
-- 💬 **WhatsApp Notifications**: Notifikasi otomatis ke pegawai saat evaluasi difinalisasi (Self-hosted Gateway).
-- 📊 **Dashboard Modern**: Visualisasi statistik kinerja yang interaktif dan informatif.
-- **📊 Pemantauan Indikator Kinerja**: Indikator kinerja yang disesuaikan untuk berbagai jabatan (Administrasi, Laboran, Pustakawan).
-- **📝 Evaluasi Komprehensif**:
-  - Evaluasi Kinerja Bulanan.
-  - Penilaian Hasil Kerja.
-  - Penilaian Perilaku Kerja.
-- **📥 Ekspor Laporan Profesional**: Menghasilkan laporan evaluasi dalam format **PDF** dan **Excel** yang siap cetak.
-- **⚙️ Manajemen Akun Terintegrasi**: Pembuatan akun otomatis untuk pegawai dan fitur reset password mandiri oleh Admin.
-- **🛠️ Installer Otomatis**: Antarmuka web untuk konfigurasi basis data dan setup awal tanpa perlu menyentuh terminal.
+## 🛠️ Persyaratan Sistem
 
----
-
-## 🛠️ Teknologi yang Digunakan
-
-| Komponen | Teknologi |
-| :--- | :--- |
-| **Framework Utama** | [Laravel 11](https://laravel.com) |
-| **Bahasa Pemrograman** | PHP 8.2+ |
-| **Basis Data** | MySQL / MariaDB |
-| **Frontend Styling** | TailwindCSS v4 & Vanilla CSS (Modern Dark Mode) |
-| **Laporan PDF** | DomPDF |
-| **Laporan Excel** | Maatwebsite/Laravel-Excel |
-
----
-
-### 🎨 Kustomisasi Branding (White-Label)
-Anda dapat mengubah identitas aplikasi langsung melalui menu **Pengaturan Sistem** di akun Administrator:
-- **Identitas**: Nama Aplikasi, Nama Organisasi, Slogan.
-- **Visual**: Unggah Logo Utama & Favicon (Ikon Tab Browser).
-- **Informasi**: Teks Footer / Hak Cipta.
-
-Seluruh perubahan akan diterapkan secara *real-time* di seluruh halaman aplikasi dan laporan.
-
-### 💬 Setup WhatsApp Gateway (Self-Hosted)
-Aplikasi ini mendukung notifikasi WhatsApp tanpa pihak ketiga menggunakan `whatsapp-web.js`:
-1. Masuk ke direktori `wa-gateway`.
-2. Jalankan `npm install`.
-3. Jalankan `npm start`.
-4. Scan QR Code yang muncul di terminal menggunakan WhatsApp Anda.
-5. Konfigurasi `WA_GATEWAY_URL` dan `WA_GATEWAY_TOKEN` di dashboard Admin atau `.env`.
-
----
-
-## 🛠️ Instalasi & Penggunaan
-
-Aplikasi ini dilengkapi dengan **Web Installer** untuk memudahkan setup awal:
-
-### 1. Persyaratan Sistem
 - PHP >= 8.2
 - MySQL / MariaDB
 - Composer
-- Web Server (Apache/Nginx)
+- **Node.js >= 18** (Wajib untuk WhatsApp Gateway)
+- NPM
 
-### 2. Langkah Instalasi
-1. Clone repository atau salin folder proyek ke direktori web server Anda (misal: `htdocs`).
-2. Jalankan `composer install` di direktori proyek.
-3. Pastikan folder `storage` dan `bootstrap/cache` memiliki izin tulis (writable).
-4. Akses aplikasi melalui browser di URL: `http://localhost/evakin/public/install`.
-5. Masukkan **Installer Key** (Silakan cek file `.env` atau hubungi pengembang).
-6. Isi konfigurasi database Anda (Host, Port, Database Name, Username, Password).
-7. Klik **"Mulai Instalasi"**. Sistem akan otomatis melakukan migrasi database dan seeding data awal.
+## 📥 Instalasi
+
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/ridyko/Evaluasi-Kinerja-PPPK-Paruh-Waktu.git
+   cd Evaluasi-Kinerja-PPPK-Paruh-Waktu
+   ```
+
+2. **Install Dependensi PHP**
+   ```bash
+   composer install
+   ```
+
+3. **Konfigurasi Environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   *Sesuaikan pengaturan database di file `.env`.*
+
+4. **Migrasi Database**
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. **Setup WhatsApp Gateway**
+   - Buka menu **WhatsApp Gateway** di dashboard Admin.
+   - Klik tombol **"Install Sekarang"** untuk mengunduh library yang dibutuhkan.
+   - Klik **"Aktifkan Sekarang"** dan scan QR Code yang muncul.
+
+## 📱 Panduan WhatsApp Gateway
+
+Sistem notifikasi WhatsApp di EVAKIN berjalan secara mandiri menggunakan mesin **Baileys**. Anda memiliki kontrol penuh atas layanan ini:
+
+### Cara Menghubungkan:
+1. Masuk sebagai **Administrator**.
+2. Pilih menu **WhatsApp Gateway** di sidebar.
+3. Klik **Aktifkan Sekarang**.
+4. Gunakan WhatsApp di ponsel Anda (Perangkat Tertaut > Tautkan Perangkat) untuk melakukan scan pada QR Code yang tampil.
+
+### Fitur Manajemen:
+- **Aktifkan/Matikan**: Menjalankan atau menghentikan proses background tanpa menghapus login.
+- **Ganti Akun / Reset**: Menghapus sesi login saat ini jika Anda ingin menggunakan nomor WhatsApp lain.
+- **Kirim Ulang**: Jika notifikasi gagal dikirim (karena koneksi internet atau gateway mati), Anda bisa mengklik tombol WhatsApp hijau di daftar evaluasi untuk mencoba kembali.
+
+## 🤝 Kontribusi
+
+Kontribusi selalu terbuka! Silakan lakukan pull request atau buka issue untuk saran perbaikan.
+
+## 📄 Lisensi
+
+Proyek ini berada di bawah lisensi **MIT**.
 
 ---
-
-## 🔑 Kredensial Default (Akses Awal)
-
-Gunakan akun berikut setelah instalasi selesai untuk masuk ke sistem:
-
-| Peran | Email | Password |
-| :--- | :--- | :--- |
-| **Administrator** | `admin@evakin.test` | `password` |
-| **Pejabat Penilai** | `pejabat@evakin.test` | `password` |
-
-> [!TIP]
-> Untuk akun **Pegawai**, password default adalah **NI PPPK** masing-masing pegawai yang dapat dilihat di menu Manajemen Pegawai oleh Admin.
-
----
-
-## 📂 Struktur Proyek
-
-- `app/Models/`: Definisi entitas data (Pegawai, Evaluasi, Indikator, dll).
-- `app/Http/Controllers/`: Logika bisnis utama untuk setiap modul.
-- `resources/views/`: Template antarmuka pengguna menggunakan Blade.
-- `routes/web.php`: Definisi jalur akses (routing) aplikasi.
-- `database/seeders/`: Data awal untuk jabatan dan indikator kinerja.
-
----
-
-## 📝 Lisensi
-
-Aplikasi ini dikembangkan untuk kebutuhan internal organisasi. Seluruh hak cipta dilindungi.
-
----
-
-<p align="center">
-  Dibuat dengan ❤️ oleh Rio Widyatmoko
-</p>
+*Dibuat dengan ❤️ untuk kemajuan manajemen kinerja pegawai daerah.*
