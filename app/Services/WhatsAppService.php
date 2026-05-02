@@ -9,8 +9,8 @@ class WhatsAppService
 {
     public static function sendMessage($to, $message, $evaluasiId = null)
     {
-        $url = get_setting('wa_gateway_url');
-        $token = get_setting('wa_gateway_token');
+        $url = get_setting('wa_gateway_url') ?: 'http://localhost:3000';
+        $token = get_setting('wa_gateway_token') ?: 'your-secret-token';
 
         if (!$url) {
             Log::warning('WhatsApp Gateway URL not configured.');

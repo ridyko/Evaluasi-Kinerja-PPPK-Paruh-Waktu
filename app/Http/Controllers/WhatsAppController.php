@@ -45,13 +45,13 @@ class WhatsAppController extends Controller
 
     public function start()
     {
-        if ($this->isRunning()) {
-            return response()->json(['status' => false, 'message' => 'Layanan sudah berjalan.']);
-        }
+        // Matikan dulu jika ada yang jalan agar token terbaru terpakai
+        exec("pkill -f 'node index.js'");
+        sleep(1);
 
-        // Cari path node secara dinamis jika memungkinkan, atau gunakan default mac
+        // Cari path node secara dinamis
         $nodePath = shell_exec('which node') ? trim(shell_exec('which node')) : '/usr/local/bin/node';
-        $token = get_setting('wa_gateway_token', 'your-secret-token');
+        $token = get_setting('wa_gateway_token') ?: 'your-secret-token';
         
         // Jalankan node di background dengan token dari settings
         $logPath = escapeshellarg($this->gatewayPath . '/output.log');
