@@ -49,7 +49,7 @@ Aplikasi ini dilengkapi dengan **Web Installer** untuk memudahkan setup awal.
 2. Jalankan `composer install` di direktori proyek.
 3. Pastikan folder `storage` dan `bootstrap/cache` memiliki izin tulis (writable).
 4. Akses aplikasi melalui browser di URL: `http://localhost/evakin/public/install`.
-5. Masukkan **Installer Key**: `smkn2jkt-kinerja`.
+5. Masukkan **Installer Key** (Silakan cek file `.env` atau hubungi pengembang).
 6. Isi konfigurasi database Anda (Host, Port, Database Name, Username, Password).
 7. Klik **"Mulai Instalasi"**. Sistem akan otomatis melakukan migrasi database dan seeding data awal.
 

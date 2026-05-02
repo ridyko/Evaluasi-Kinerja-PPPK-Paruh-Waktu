@@ -16,7 +16,7 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     'installed' => env('APP_INSTALLED', false),
-    'installer_key' => env('INSTALLER_KEY', 'smkn2jkt-kinerja'),
+    'installer_key' => env('INSTALLER_KEY'),
 
     /*
     |--------------------------------------------------------------------------
