@@ -16,6 +16,7 @@ return [
     'name' => env('APP_NAME', 'EVAKIN'),
     'organization_name' => env('ORGANIZATION_NAME', 'Nama Organisasi'),
     'organization_slogan' => env('ORGANIZATION_SLOGAN', 'Sistem Evaluasi Kinerja Pegawai'),
+    'organization_footer' => env('ORGANIZATION_FOOTER', '© 2024 E-Kinerja. All rights reserved.'),
 
     'installed' => env('APP_INSTALLED', false),
     'installer_key' => env('INSTALLER_KEY'),

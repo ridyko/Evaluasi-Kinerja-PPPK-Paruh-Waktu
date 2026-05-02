@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Unit Kerja <span style="color: var(--danger);">*</span></label>
-                <input type="text" name="unit_kerja" class="form-control" value="{{ old('unit_kerja', config('app.organization_name')) }}" required>
+                <input type="text" name="unit_kerja" class="form-control" value="{{ old('unit_kerja', get_setting('organization_name')) }}" required>
             </div>
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
         </form>

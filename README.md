@@ -10,6 +10,9 @@
 ## ✨ Fitur Utama
 
 - **🛡️ Manajemen Akses Berbasis Peran (RBAC)**: Mendukung peran Admin, Pejabat Penilai, dan Pegawai dengan hak akses yang tersegregasi.
+- 🏢 **White-Label Ready**: Ubah nama instansi, slogan, dan logo tanpa menyentuh kode.
+- ⚙️ **Dynamic Settings**: Panel pengaturan sistem untuk Administrator (Nama Aplikasi, Organisasi, Logo, Favicon, & Footer).
+- 📊 **Dashboard Modern**: Visualisasi statistik kinerja yang interaktif dan informatif.
 - **📊 Pemantauan Indikator Kinerja**: Indikator kinerja yang disesuaikan untuk berbagai jabatan (Administrasi, Laboran, Pustakawan).
 - **📝 Evaluasi Komprehensif**:
   - Evaluasi Kinerja Bulanan.
@@ -34,9 +37,19 @@
 
 ---
 
-## 📥 Panduan Instalasi
+### 🎨 Kustomisasi Branding (White-Label)
+Anda dapat mengubah identitas aplikasi langsung melalui menu **Pengaturan Sistem** di akun Administrator:
+- **Identitas**: Nama Aplikasi, Nama Organisasi, Slogan.
+- **Visual**: Unggah Logo Utama & Favicon (Ikon Tab Browser).
+- **Informasi**: Teks Footer / Hak Cipta.
 
-Aplikasi ini dilengkapi dengan **Web Installer** untuk memudahkan setup awal.
+Seluruh perubahan akan diterapkan secara *real-time* di seluruh halaman aplikasi dan laporan.
+
+---
+
+## 🛠️ Instalasi & Penggunaan
+
+Aplikasi ini dilengkapi dengan **Web Installer** untuk memudahkan setup awal:
 
 ### 1. Persyaratan Sistem
 - PHP >= 8.2

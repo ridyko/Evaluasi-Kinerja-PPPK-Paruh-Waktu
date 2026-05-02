@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', config('app.name')) — {{ config('app.organization_name') }}</title>
-    <meta name="description" content="{{ config('app.organization_slogan') }} {{ config('app.organization_name') }}">
+    @if(get_setting('app_favicon'))
+    <link rel="icon" type="image/x-icon" href="{{ asset(get_setting('app_favicon')) }}">
+    @endif
+    <title>@yield('title', get_setting('app_name')) — {{ get_setting('organization_name') }}</title>
+    <meta name="description" content="{{ get_setting('organization_slogan') }} {{ get_setting('organization_name') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -597,10 +600,14 @@
     {{-- Sidebar --}}
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
-            <div class="logo-icon">{{ substr(config('app.name'), 0, 2) }}</div>
+            @if(get_setting('app_logo'))
+                <img src="{{ asset(get_setting('app_logo')) }}" alt="Logo" style="width: 42px; height: 42px; border-radius: 8px; object-fit: contain;">
+            @else
+                <div class="logo-icon">{{ substr(get_setting('app_name'), 0, 2) }}</div>
+            @endif
             <div>
-                <div class="logo-text">{{ config('app.name') }}</div>
-                <div class="logo-sub">{{ config('app.organization_name') }}</div>
+                <div class="logo-text">{{ get_setting('app_name') }}</div>
+                <div class="logo-sub">{{ get_setting('organization_name') }}</div>
             </div>
         </div>
 
@@ -625,9 +632,13 @@
                 <i class="fas fa-bullseye"></i> Indikator Kinerja
             </a>
 
-            <div class="nav-section-title" style="margin-top: 1rem;">Manajemen Akun</div>
             <a href="{{ route('akun.index') }}" class="nav-item {{ request()->routeIs('akun.*') ? 'active' : '' }}">
                 <i class="fas fa-user-lock"></i> Kelola Akun
+            </a>
+
+            <div class="nav-section-title" style="margin-top: 1rem;">Sistem</div>
+            <a href="{{ route('settings.index') }}" class="nav-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
+                <i class="fas fa-cog"></i> Pengaturan Sistem
             </a>
             @endif
 
@@ -711,6 +722,11 @@
             @endif
 
             @yield('content')
+            
+            {{-- Footer --}}
+            <footer style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(99, 102, 241, 0.08); text-align: center; color: var(--text-secondary); font-size: 0.8rem;">
+                {{ get_setting('organization_footer') }}
+            </footer>
         </div>
     </main>
 

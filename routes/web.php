@@ -63,6 +63,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/akun/{akun}', [AkunPegawaiController::class, 'update'])->name('akun.update');
         Route::post('/akun/{akun}/reset-password', [AkunPegawaiController::class, 'resetPassword'])->name('akun.resetPassword');
         Route::delete('/akun/{akun}', [AkunPegawaiController::class, 'destroy'])->name('akun.destroy');
+
+        // System Settings
+        Route::get('/settings', [\App\Http\Controllers\SettingController::class, 'index'])->name('settings.index');
+        Route::put('/settings', [\App\Http\Controllers\SettingController::class, 'update'])->name('settings.update');
     });
 
     // ==========================================

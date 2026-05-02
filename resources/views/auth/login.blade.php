@@ -247,10 +247,14 @@
     <div class="login-container">
         <div class="login-header">
             <div class="login-logo">
-                <span>EK</span>
+                @if(get_setting('app_logo'))
+                    <img src="{{ asset(get_setting('app_logo')) }}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                @else
+                    <span>{{ substr(get_setting('app_name'), 0, 2) }}</span>
+                @endif
             </div>
-            <h1>{{ config('app.name') }}</h1>
-            <p>{{ config('app.organization_slogan') }}<br>{{ config('app.organization_name') }}</p>
+            <h1>{{ get_setting('app_name') }}</h1>
+            <p>{{ get_setting('organization_slogan') }}<br>{{ get_setting('organization_name') }}</p>
         </div>
 
         <div class="login-card">
