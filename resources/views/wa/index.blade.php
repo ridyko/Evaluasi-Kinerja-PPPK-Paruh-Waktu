@@ -51,10 +51,20 @@
             </div>
 
             <div id="wa-install-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); display: none;">
-                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">Layanan belum terinstall sempurna di server ini.</p>
-                <button type="button" id="btn-wa-install" class="btn btn-ghost btn-sm" style="width: 100%;">
-                    <i class="fas fa-download"></i> Perbaiki / Install Ulang
-                </button>
+                <div id="install-default-ui">
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">Layanan belum terinstall sempurna di server ini.</p>
+                    <button type="button" id="btn-wa-install" class="btn btn-ghost btn-sm" style="width: 100%;">
+                        <i class="fas fa-download"></i> Install Sekarang
+                    </button>
+                </div>
+                
+                <div id="install-progress-ui" style="display: none;">
+                    <p id="install-status-text" style="font-size: 0.8rem; color: var(--primary-light); margin-bottom: 0.75rem;">Sedang menginstall...</p>
+                    <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; margin-bottom: 1rem;">
+                        <div id="install-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.5s ease;"></div>
+                    </div>
+                    <small style="color: var(--text-secondary); font-size: 0.7rem;">Mohon jangan tutup halaman ini.</small>
+                </div>
             </div>
         </div>
     </div>
@@ -134,12 +144,41 @@
     document.getElementById('btn-wa-stop-connected').addEventListener('click', stopService);
     
     document.getElementById('btn-wa-install').addEventListener('click', function() {
-        this.disabled = true;
-        this.innerText = 'Menginstall...';
+        const defaultUI = document.getElementById('install-default-ui');
+        const progressUI = document.getElementById('install-progress-ui');
+        const progressBar = document.getElementById('install-progress-bar');
+        const statusText = document.getElementById('install-status-text');
+
+        defaultUI.style.display = 'none';
+        progressUI.style.display = 'block';
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            if (progress < 90) {
+                progress += Math.random() * 5;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+                
+                if (progress > 60) statusText.innerText = 'Menyiapkan mesin...';
+                else if (progress > 30) statusText.innerText = 'Mengunduh paket...';
+            }
+        }, 1000);
+
         fetch('{{ route('wa.install') }}', {
             method: 'POST',
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        }).then(() => alert('Instalasi berjalan. Silakan tunggu 1 menit lalu Aktifkan kembali.'));
+        }).then(res => res.json()).then(data => {
+            clearInterval(interval);
+            progressBar.style.width = '100%';
+            statusText.innerText = 'Instalasi Selesai!';
+            statusText.style.color = 'var(--success)';
+            
+            setTimeout(() => {
+                progressUI.style.display = 'none';
+                defaultUI.style.display = 'block';
+                checkStatus();
+            }, 2000);
+        });
     });
 
     setInterval(checkStatus, 5000);
