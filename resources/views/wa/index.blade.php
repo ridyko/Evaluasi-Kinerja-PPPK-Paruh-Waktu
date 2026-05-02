@@ -45,9 +45,15 @@
                 </div>
                 <h2 style="color: var(--success); margin-bottom: 0.5rem;">Terhubung!</h2>
                 <p style="color: var(--text-secondary); margin-bottom: 2rem;">Sistem siap mengirimkan notifikasi otomatis.</p>
-                <button type="button" id="btn-wa-stop-connected" class="btn btn-danger btn-sm" style="width: 100%;">
-                    <i class="fas fa-stop"></i> Putuskan Koneksi
-                </button>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" id="btn-wa-stop-connected" class="btn btn-ghost btn-sm" style="flex: 1;">
+                        <i class="fas fa-power-off"></i> Matikan Layanan
+                    </button>
+                    <button type="button" id="btn-wa-reset" class="btn btn-danger btn-sm" style="flex: 1;">
+                        <i class="fas fa-sync"></i> Ganti Akun / Reset
+                    </button>
+                </div>
             </div>
 
             <div id="wa-install-section" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); display: none;">
@@ -192,6 +198,19 @@
     document.getElementById('btn-wa-start').addEventListener('click', startService);
     document.getElementById('btn-wa-stop-qr').addEventListener('click', stopService);
     document.getElementById('btn-wa-stop-connected').addEventListener('click', stopService);
+    
+    document.getElementById('btn-wa-reset').addEventListener('click', function() {
+        if(!confirm('Anda akan keluar dari akun WhatsApp saat ini dan harus scan ulang. Lanjutkan?')) return;
+        
+        showState('loading');
+        fetch('{{ route('wa.reset') }}', {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+        }).then(() => {
+            showState('off');
+            qrCodeDiv.innerHTML = '';
+        }).catch(() => showState('off'));
+    });
     
     document.getElementById('btn-wa-install').addEventListener('click', function() {
         const defaultUI = document.getElementById('install-default-ui');

@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/wa/status', [\App\Http\Controllers\WhatsAppController::class, 'status'])->name('wa.status');
         Route::post('/wa/start', [\App\Http\Controllers\WhatsAppController::class, 'start'])->name('wa.start');
         Route::post('/wa/stop', [\App\Http\Controllers\WhatsAppController::class, 'stop'])->name('wa.stop');
+        Route::post('/wa/reset', [\App\Http\Controllers\WhatsAppController::class, 'reset'])->name('wa.reset');
         Route::post('/wa/install', [\App\Http\Controllers\WhatsAppController::class, 'install'])->name('wa.install');
         Route::get('/wa/qr', [\App\Http\Controllers\WhatsAppController::class, 'qr'])->name('wa.qr');
     });
