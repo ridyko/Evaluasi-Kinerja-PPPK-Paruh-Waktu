@@ -39,6 +39,11 @@
                 <label class="form-label">Unit Kerja <span style="color: var(--danger);">*</span></label>
                 <input type="text" name="unit_kerja" class="form-control" value="{{ old('unit_kerja', $pegawai->unit_kerja) }}" required>
             </div>
+            <div class="form-group">
+                <label class="form-label">No. WhatsApp <small>(Contoh: 08123456789)</small></label>
+                <input type="text" name="telepon" class="form-control" value="{{ old('telepon', $pegawai->telepon) }}">
+                <small style="color: var(--text-secondary); font-size: 0.75rem;">Digunakan untuk notifikasi finalisasi evaluasi.</small>
+            </div>
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Perbarui</button>
         </form>
     </div>

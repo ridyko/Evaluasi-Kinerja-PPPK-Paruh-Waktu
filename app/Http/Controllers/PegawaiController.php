@@ -28,9 +28,10 @@ class PegawaiController extends Controller
             'pangkat_gol' => 'nullable|string|max:50',
             'jabatan_id' => 'required|exists:jabatan,id',
             'unit_kerja' => 'required|string|max:255',
+            'telepon' => 'nullable|string|max:20',
         ]);
 
-        Pegawai::create($request->only(['nama', 'ni_pppk', 'pangkat_gol', 'jabatan_id', 'unit_kerja']));
+        Pegawai::create($request->only(['nama', 'ni_pppk', 'pangkat_gol', 'jabatan_id', 'unit_kerja', 'telepon']));
 
         return redirect()->route('pegawai.index')
             ->with('success', 'Data pegawai berhasil ditambahkan.');
@@ -50,9 +51,10 @@ class PegawaiController extends Controller
             'pangkat_gol' => 'nullable|string|max:50',
             'jabatan_id' => 'required|exists:jabatan,id',
             'unit_kerja' => 'required|string|max:255',
+            'telepon' => 'nullable|string|max:20',
         ]);
 
-        $pegawai->update($request->only(['nama', 'ni_pppk', 'pangkat_gol', 'jabatan_id', 'unit_kerja']));
+        $pegawai->update($request->only(['nama', 'ni_pppk', 'pangkat_gol', 'jabatan_id', 'unit_kerja', 'telepon']));
 
         return redirect()->route('pegawai.index')
             ->with('success', 'Data pegawai berhasil diperbarui.');

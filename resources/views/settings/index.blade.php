@@ -57,6 +57,21 @@
                     <small style="color: var(--text-secondary); font-size: 0.75rem;">Teks hak cipta di bagian bawah halaman.</small>
                 </div>
 
+                <hr style="margin: 2rem 0; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="font-size: 1.1rem; margin-bottom: 1.5rem;"><i class="fab fa-whatsapp"></i> WhatsApp Gateway (Self-Hosted)</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Gateway URL</label>
+                    <input type="text" name="wa_gateway_url" class="form-control" value="{{ old('wa_gateway_url', get_setting('wa_gateway_url')) }}" placeholder="http://localhost:3000">
+                    <small style="color: var(--text-secondary); font-size: 0.75rem;">URL API gateway buatan sendiri.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Gateway Token</label>
+                    <input type="password" name="wa_gateway_token" class="form-control" value="{{ old('wa_gateway_token', get_setting('wa_gateway_token')) }}" placeholder="Token Rahasia">
+                    <small style="color: var(--text-secondary); font-size: 0.75rem;">Token keamanan untuk akses API.</small>
+                </div>
+
                 <div style="margin-top: 2rem;">
                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                         <i class="fas fa-save"></i> Simpan Perubahan

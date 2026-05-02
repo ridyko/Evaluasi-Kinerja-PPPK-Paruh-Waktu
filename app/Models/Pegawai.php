@@ -16,6 +16,7 @@ class Pegawai extends Model
         'pangkat_gol',
         'jabatan_id',
         'unit_kerja',
+        'telepon',
         'is_active',
     ];
 

@@ -22,6 +22,8 @@ class SettingController extends Controller
             'organization_footer' => 'nullable|string|max:255',
             'app_logo' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',
             'app_favicon' => 'nullable|image|mimes:png,ico,jpg,jpeg|max:1024',
+            'wa_gateway_url' => 'nullable|url|max:255',
+            'wa_gateway_token' => 'nullable|string|max:255',
         ]);
 
         // Handle File Uploads

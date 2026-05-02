@@ -18,6 +18,9 @@ return [
     'organization_slogan' => env('ORGANIZATION_SLOGAN', 'Sistem Evaluasi Kinerja Pegawai'),
     'organization_footer' => env('ORGANIZATION_FOOTER', '© 2024 E-Kinerja. All rights reserved.'),
 
+    'wa_gateway_url' => env('WA_GATEWAY_URL', 'http://localhost:3000'),
+    'wa_gateway_token' => env('WA_GATEWAY_TOKEN'),
+
     'installed' => env('APP_INSTALLED', false),
     'installer_key' => env('INSTALLER_KEY'),
 

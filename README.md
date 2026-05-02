@@ -12,6 +12,7 @@
 - **🛡️ Manajemen Akses Berbasis Peran (RBAC)**: Mendukung peran Admin, Pejabat Penilai, dan Pegawai dengan hak akses yang tersegregasi.
 - 🏢 **White-Label Ready**: Ubah nama instansi, slogan, dan logo tanpa menyentuh kode.
 - ⚙️ **Dynamic Settings**: Panel pengaturan sistem untuk Administrator (Nama Aplikasi, Organisasi, Logo, Favicon, & Footer).
+- 💬 **WhatsApp Notifications**: Notifikasi otomatis ke pegawai saat evaluasi difinalisasi (Self-hosted Gateway).
 - 📊 **Dashboard Modern**: Visualisasi statistik kinerja yang interaktif dan informatif.
 - **📊 Pemantauan Indikator Kinerja**: Indikator kinerja yang disesuaikan untuk berbagai jabatan (Administrasi, Laboran, Pustakawan).
 - **📝 Evaluasi Komprehensif**:
@@ -44,6 +45,14 @@ Anda dapat mengubah identitas aplikasi langsung melalui menu **Pengaturan Sistem
 - **Informasi**: Teks Footer / Hak Cipta.
 
 Seluruh perubahan akan diterapkan secara *real-time* di seluruh halaman aplikasi dan laporan.
+
+### 💬 Setup WhatsApp Gateway (Self-Hosted)
+Aplikasi ini mendukung notifikasi WhatsApp tanpa pihak ketiga menggunakan `whatsapp-web.js`:
+1. Masuk ke direktori `wa-gateway`.
+2. Jalankan `npm install`.
+3. Jalankan `npm start`.
+4. Scan QR Code yang muncul di terminal menggunakan WhatsApp Anda.
+5. Konfigurasi `WA_GATEWAY_URL` dan `WA_GATEWAY_TOKEN` di dashboard Admin atau `.env`.
 
 ---
 
