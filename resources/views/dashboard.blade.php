@@ -134,4 +134,60 @@
         </div>
     </div>
 </div>
+
+@if(!auth()->user()->isPegawai())
+{{-- WhatsApp Notifications History --}}
+<div class="card" style="margin-top: 2rem;">
+    <div class="card-header">
+        <h2><i class="fab fa-whatsapp" style="color: var(--success); margin-right: 0.5rem;"></i>Riwayat Notifikasi WhatsApp</h2>
+        <a href="{{ route('wa.index') }}" class="btn btn-ghost btn-sm">Buka Gateway</a>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        @if($recentWaLogs->isEmpty())
+            <div class="empty-state">
+                <i class="fas fa-paper-plane"></i>
+                <p>Belum ada riwayat notifikasi terkirim</p>
+            </div>
+        @else
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Pegawai</th>
+                        <th>Nomor Tujuan</th>
+                        <th>Status</th>
+                        <th>Waktu</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($recentWaLogs as $log)
+                    <tr>
+                        <td>
+                            <div style="font-weight: 600; font-size: 0.85rem;">{{ $log->evaluasi->pegawai->nama ?? 'N/A' }}</div>
+                            <div style="font-size: 0.7rem; color: var(--text-secondary);">Periode: {{ $log->evaluasi->nama_bulan ?? '-' }} {{ $log->evaluasi->tahun ?? '' }}</div>
+                        </td>
+                        <td>{{ $log->phone }}</td>
+                        <td>
+                            @if($log->status === 'sent')
+                                <span class="badge badge-success"><i class="fas fa-check-circle" style="margin-right: 4px;"></i>Terkirim</span>
+                            @elseif($log->status === 'failed')
+                                <span class="badge badge-danger"><i class="fas fa-times-circle" style="margin-right: 4px;"></i>Gagal</span>
+                            @else
+                                <span class="badge badge-warning"><i class="fas fa-clock" style="margin-right: 4px;"></i>Tertunda</span>
+                            @endif
+                        </td>
+                        <td style="font-size: 0.8rem;">
+                            {{ $log->created_at->diffForHumans() }}
+                        </td>
+                        <td style="font-size: 0.75rem; color: var(--text-secondary); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            {{ $log->note ?: '-' }}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
+</div>
+@endif
 @endsection

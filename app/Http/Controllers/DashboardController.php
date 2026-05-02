@@ -51,13 +51,20 @@ class DashboardController extends Controller
             $monthlyStats[] = $statQuery->count();
         }
 
+        // Recent WhatsApp notifications
+        $recentWaLogs = \App\Models\WaLog::with('evaluasi.pegawai')
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+
         return view('dashboard', compact(
             'totalPegawai',
             'totalPenilai',
             'totalEvaluasi',
             'evaluasiBulanIni',
             'recentEvaluasi',
-            'monthlyStats'
+            'monthlyStats',
+            'recentWaLogs'
         ));
     }
 }
