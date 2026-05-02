@@ -76,13 +76,16 @@ class WhatsAppController extends Controller
 
     public function stop()
     {
-        // Matikan semua proses node yang menjalankan index.js di folder wa-gateway
+        // Matikan semua proses node yang menjalankan index.js
         exec("pkill -f 'node index.js'");
         
-        // Hapus folder auth jika ingin reset total (opsional)
-        // exec("rm -rf " . escapeshellarg($this->gatewayPath . '/auth_info_baileys'));
+        // Matikan paksa jika masih ada yang nyangkut di port 3000
+        exec("lsof -t -i:3000 | xargs kill -9 > /dev/null 2>&1");
+        
+        // Hapus folder auth jika ingin reset total
+        exec("rm -rf " . escapeshellarg($this->gatewayPath . '/auth_info_baileys'));
 
-        return response()->json(['status' => true, 'message' => 'Layanan dihentikan.']);
+        return response()->json(['status' => true, 'message' => 'Layanan dihentikan dan session direset.']);
     }
 
     public function install()
