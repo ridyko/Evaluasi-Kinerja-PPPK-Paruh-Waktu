@@ -15,6 +15,11 @@ class WhatsAppController extends Controller
         $this->gatewayPath = base_path('wa-gateway');
     }
 
+    public function index()
+    {
+        return view('wa.index');
+    }
+
     public function status()
     {
         $url = get_setting('wa_gateway_url', 'http://localhost:3000');

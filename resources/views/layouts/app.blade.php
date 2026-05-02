@@ -640,6 +640,9 @@
             <a href="{{ route('settings.index') }}" class="nav-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                 <i class="fas fa-cog"></i> Pengaturan Sistem
             </a>
+            <a href="{{ route('wa.index') }}" class="nav-item {{ request()->routeIs('wa.*') ? 'active' : '' }}">
+                <i class="fab fa-whatsapp"></i> WhatsApp Gateway
+            </a>
             @endif
 
             @if(auth()->user()->isPegawai())

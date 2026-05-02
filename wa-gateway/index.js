@@ -1,31 +1,60 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
-const express = require('express');
+const { 
+    default: makeWASocket, 
+    useMultiFileAuthState, 
+    DisconnectReason,
+    fetchLatestBaileysVersion,
+    makeCacheableSignalKeyStore
+} = require("@whiskeysockets/baileys");
+const { Boom } = require("@hapi/boom");
+const pino = require("pino");
+const express = require("express");
+const qrcode = require("qrcode-terminal");
+
 const app = express();
 const port = 3000;
-const TOKEN = "your-secret-token"; // Sesuaikan dengan WA_GATEWAY_TOKEN di .env
+const TOKEN = "your-secret-token"; 
 
 app.use(express.json());
 
-const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        args: ['--no-sandbox']
-    }
-});
-
+let sock = null;
 let qrData = null;
+let isConnected = false;
 
-client.on('qr', (qr) => {
-    console.log('SCAN QR CODE INI DENGAN WHATSAPP ANDA:');
-    qrcode.generate(qr, { small: true });
-    qrData = qr;
-});
+async function connectToWhatsApp() {
+    const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys');
+    const { version, isLatest } = await fetchLatestBaileysVersion();
 
-client.on('ready', () => {
-    console.log('WhatsApp Gateway is Ready!');
-    qrData = null;
-});
+    sock = makeWASocket({
+        version,
+        printQRInTerminal: true,
+        auth: state,
+        logger: pino({ level: 'silent' }),
+    });
+
+    sock.ev.on('connection.update', (update) => {
+        const { connection, lastDisconnect, qr } = update;
+        
+        if (qr) {
+            qrData = qr;
+        }
+
+        if (connection === 'close') {
+            isConnected = false;
+            const shouldReconnect = (lastDisconnect.error instanceof Boom) ? 
+                lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut : true;
+            console.log('Connection closed, reconnecting...', shouldReconnect);
+            if (shouldReconnect) {
+                connectToWhatsApp();
+            }
+        } else if (connection === 'open') {
+            console.log('WhatsApp Gateway (Baileys) is Ready!');
+            isConnected = true;
+            qrData = null;
+        }
+    });
+
+    sock.ev.on('creds.update', saveCreds);
+}
 
 app.get('/qr', (req, res) => {
     if (qrData) {
@@ -36,7 +65,7 @@ app.get('/qr', (req, res) => {
 });
 
 app.get('/status', (req, res) => {
-    res.json({ status: true, connected: client.info ? true : false });
+    res.json({ status: true, connected: isConnected });
 });
 
 app.post('/send-message', async (req, res) => {
@@ -47,21 +76,21 @@ app.post('/send-message', async (req, res) => {
         return res.status(401).json({ status: false, message: 'Unauthorized' });
     }
 
-    if (!to || !message) {
-        return res.status(400).json({ status: false, message: 'Missing parameters' });
+    if (!isConnected) {
+        return res.status(500).json({ status: false, message: 'WhatsApp not connected' });
     }
 
     try {
-        const chatId = to.includes('@c.us') ? to : `${to}@c.us`;
-        await client.sendMessage(chatId, message);
+        const jid = to.includes('@s.whatsapp.net') ? to : `${to}@s.whatsapp.net`;
+        await sock.sendMessage(jid, { text: message });
         res.json({ status: true, message: 'Message sent successfully' });
     } catch (error) {
         res.status(500).json({ status: false, message: error.message });
     }
 });
 
-client.initialize();
+connectToWhatsApp();
 
 app.listen(port, () => {
-    console.log(`WA Gateway listening at http://localhost:${port}`);
+    console.log(`WA Gateway (Baileys) listening at http://localhost:${port}`);
 });

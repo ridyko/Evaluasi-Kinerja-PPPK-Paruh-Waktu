@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/settings', [\App\Http\Controllers\SettingController::class, 'update'])->name('settings.update');
 
         // WhatsApp Service Management
+        Route::get('/wa', [\App\Http\Controllers\WhatsAppController::class, 'index'])->name('wa.index');
         Route::get('/wa/status', [\App\Http\Controllers\WhatsAppController::class, 'status'])->name('wa.status');
         Route::post('/wa/start', [\App\Http\Controllers\WhatsAppController::class, 'start'])->name('wa.start');
         Route::post('/wa/stop', [\App\Http\Controllers\WhatsAppController::class, 'stop'])->name('wa.stop');
