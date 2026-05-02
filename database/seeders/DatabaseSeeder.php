@@ -94,9 +94,9 @@ class DatabaseSeeder extends Seeder
         // 3. PEJABAT PENILAI
         // ==========================================
         $penilai = PejabatPenilai::create([
-            'nama' => 'Mohamad Sodeli',
-            'nip' => '197103051998021002',
-            'pangkat_gol' => 'Pembina Tk.I (IV/B)',
+            'nama' => 'Drs. Heru Susanto, M.Pd',
+            'nip' => '197501012000011001',
+            'pangkat_gol' => 'Pembina (IV/A)',
             'jabatan' => 'Kepala Sub Bagian Tata Usaha',
             'unit_kerja' => 'SMK Negeri 2 Jakarta',
         ]);
@@ -106,53 +106,53 @@ class DatabaseSeeder extends Seeder
         // ==========================================
         $pegawaiData = [
             [
-                'nama' => 'Bambang Hermawan',
-                'ni_pppk' => '198010062025211090',
-                'pangkat_gol' => 'V',
+                'nama' => 'Budi Santoso',
+                'ni_pppk' => '199001012024211001',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $administrasi->id,
-                'email' => 'abeng.beken08@gmail.com',
+                'email' => 'budi@example.test',
             ],
             [
-                'nama' => 'Euis Mufida',
-                'ni_pppk' => '198207132025212054',
-                'pangkat_gol' => 'V',
+                'nama' => 'Siti Aminah',
+                'ni_pppk' => '199202022024212002',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $pustakawan->id,
-                'email' => 'euis.mufi@yahoo.com',
+                'email' => 'siti@example.test',
             ],
             [
-                'nama' => 'Frans Hanip Akbar',
-                'ni_pppk' => '198406102025211186',
-                'pangkat_gol' => 'V',
+                'nama' => 'Andi Wijaya',
+                'ni_pppk' => '198503032024211003',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $administrasi->id,
-                'email' => 'franzelnino3@gmail.com',
+                'email' => 'andi@example.test',
             ],
             [
-                'nama' => 'Galuh Desy Rahmawati',
-                'ni_pppk' => '199312092025212138',
-                'pangkat_gol' => 'V',
+                'nama' => 'Dewi Lestari',
+                'ni_pppk' => '199504042024212004',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $administrasi->id,
-                'email' => 'galuh_ak1@yahoo.co.id',
+                'email' => 'dewi@example.test',
             ],
             [
-                'nama' => 'Nur Umami',
-                'ni_pppk' => '198807192025212131',
-                'pangkat_gol' => 'V',
+                'nama' => 'Eko Prasetyo',
+                'ni_pppk' => '198805052024211005',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $administrasi->id,
-                'email' => 'nurkayana17@gmail.com',
+                'email' => 'eko@example.test',
             ],
             [
-                'nama' => 'Rio Widyatmoko',
-                'ni_pppk' => '199206252025211130',
-                'pangkat_gol' => 'V',
+                'nama' => 'Rina Kartika',
+                'ni_pppk' => '199306062024212006',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $laboran->id,
-                'email' => 'riowidyatmoko@gmail.com',
+                'email' => 'rina@example.test',
             ],
             [
-                'nama' => 'Sapto Prasetyo',
-                'ni_pppk' => '199109282025211106',
-                'pangkat_gol' => 'V',
+                'nama' => 'Fajar Ramadhan',
+                'ni_pppk' => '199107072024211007',
+                'pangkat_gol' => 'IX',
                 'jabatan_id' => $administrasi->id,
-                'email' => 'prasetyosapto30@yahoo.co.id',
+                'email' => 'fajar@example.test',
             ],
         ];
 
@@ -189,7 +189,7 @@ class DatabaseSeeder extends Seeder
 
         // Penilai
         User::create([
-            'name' => 'Mohamad Sodeli',
+            'name' => 'Drs. Heru Susanto, M.Pd',
             'email' => 'pejabat@evakin.test',
             'password' => Hash::make('password'),
             'role' => 'penilai',
