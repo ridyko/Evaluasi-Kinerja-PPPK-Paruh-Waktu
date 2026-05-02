@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/evaluasi/{evaluasi}/edit', [EvaluasiController::class, 'edit'])->name('evaluasi.edit');
         Route::put('/evaluasi/{evaluasi}', [EvaluasiController::class, 'update'])->name('evaluasi.update');
         Route::post('/evaluasi/{evaluasi}/finalize', [EvaluasiController::class, 'finalize'])->name('evaluasi.finalize');
+        Route::post('/evaluasi/{evaluasi}/resend-wa', [EvaluasiController::class, 'resendWhatsApp'])->name('evaluasi.resend-wa');
         Route::delete('/evaluasi/{evaluasi}', [EvaluasiController::class, 'destroy'])->name('evaluasi.destroy');
     });
 
@@ -94,7 +95,7 @@ Route::middleware('auth')->group(function () {
     // ==========================================
     Route::middleware('role:admin,penilai,pegawai')->group(function () {
         Route::get('/evaluasi', [EvaluasiController::class, 'index'])->name('evaluasi.index');
-        Route::get('/evaluasi/{evaluasi}/show', [EvaluasiController::class, 'show'])->name('evaluasi.show');
+        Route::get('/evaluasi/{evaluasi}', [EvaluasiController::class, 'show'])->name('evaluasi.show');
         Route::get('/evaluasi/{evaluasi}/pdf', [EvaluasiController::class, 'exportPdf'])->name('evaluasi.pdf');
         Route::get('/evaluasi/{evaluasi}/excel', [EvaluasiController::class, 'exportExcel'])->name('evaluasi.excel');
     });

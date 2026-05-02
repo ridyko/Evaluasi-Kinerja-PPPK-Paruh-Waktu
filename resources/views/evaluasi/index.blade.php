@@ -102,7 +102,15 @@
                                 <i class="fas fa-file-excel"></i> Excel
                             </a>
 
-                            @if(!$isPegawai)
+                             @if(!$isPegawai)
+                                @if($ev->status === 'final')
+                                    <form action="{{ route('evaluasi.resend-wa', $ev) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-ghost btn-sm" title="Kirim Ulang WA" style="background: rgba(37, 211, 102, 0.1); color: #25D366;">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </button>
+                                    </form>
+                                @endif
                                 @if($ev->status === 'draft')
                                     <a href="{{ route('evaluasi.edit', $ev) }}" class="btn btn-ghost btn-sm" title="Edit"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('evaluasi.destroy', $ev) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus evaluasi ini?')">

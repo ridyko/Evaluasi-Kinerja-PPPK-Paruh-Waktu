@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 class WhatsAppService
 {
-    public static function sendMessage($to, $message)
+    public static function sendMessage($to, $message, $evaluasiId = null)
     {
         $url = get_setting('wa_gateway_url');
         $token = get_setting('wa_gateway_token');
@@ -15,6 +15,17 @@ class WhatsAppService
         if (!$url) {
             Log::warning('WhatsApp Gateway URL not configured.');
             return false;
+        }
+
+        // Create initial log
+        $waLog = null;
+        if ($evaluasiId) {
+            $waLog = \App\Models\WaLog::create([
+                'evaluasi_id' => $evaluasiId,
+                'nomor_tujuan' => $to,
+                'pesan' => $message,
+                'status' => 'pending'
+            ]);
         }
 
         // Clean phone number
@@ -32,13 +43,18 @@ class WhatsAppService
             ]);
 
             if ($response->successful()) {
+                if ($waLog) $waLog->update(['status' => 'sent']);
                 return true;
             }
 
-            Log::error('WhatsApp API Error: ' . $response->body());
+            $errorMsg = 'WhatsApp API Error: ' . $response->body();
+            Log::error($errorMsg);
+            if ($waLog) $waLog->update(['status' => 'failed', 'keterangan' => $errorMsg]);
             return false;
         } catch (\Exception $e) {
-            Log::error('WhatsApp Connection Error: ' . $e->getMessage());
+            $errorMsg = 'WhatsApp Connection Error: ' . $e->getMessage();
+            Log::error($errorMsg);
+            if ($waLog) $waLog->update(['status' => 'failed', 'keterangan' => $errorMsg]);
             return false;
         }
     }

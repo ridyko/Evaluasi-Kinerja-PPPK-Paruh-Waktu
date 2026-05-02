@@ -12,7 +12,7 @@ const qrcode = require("qrcode-terminal");
 
 const app = express();
 const port = 3000;
-const TOKEN = "your-secret-token"; 
+const TOKEN = process.env.WA_TOKEN || "your-secret-token"; 
 
 app.use(express.json());
 

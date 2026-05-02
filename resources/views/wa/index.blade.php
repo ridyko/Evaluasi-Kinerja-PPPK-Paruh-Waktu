@@ -69,6 +69,50 @@
         </div>
     </div>
 </div>
+
+<div class="card" style="margin-top: 1.5rem;">
+    <div class="card-header">
+        <h2>Riwayat Notifikasi (Terbaru)</h2>
+    </div>
+    <div class="card-body">
+        <div style="overflow-x: auto;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Pegawai</th>
+                        <th>Nomor Tujuan</th>
+                        <th>Status</th>
+                        <th>Waktu</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($logs as $log)
+                    <tr>
+                        <td>{{ $log->evaluasi->pegawai->nama }}</td>
+                        <td>{{ $log->nomor_tujuan }}</td>
+                        <td>
+                            @if($log->status == 'sent')
+                                <span class="badge badge-success">Terkirim</span>
+                            @elseif($log->status == 'failed')
+                                <span class="badge badge-danger">Gagal</span>
+                            @else
+                                <span class="badge badge-warning">Pending</span>
+                            @endif
+                        </td>
+                        <td>{{ $log->created_at->diffForHumans() }}</td>
+                        <td><small>{{ $log->keterangan ?: '-' }}</small></td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="empty-state">Belum ada riwayat notifikasi.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')

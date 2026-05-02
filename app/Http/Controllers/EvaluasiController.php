@@ -183,7 +183,7 @@ class EvaluasiController extends Controller
             
             $message = "Halo *{$pegawai->nama}*,\n\nEvaluasi Kinerja Anda untuk bulan *{$bulanName} {$tahun}* telah selesai dinilai dan di-*FINALISASI* oleh Pejabat Penilai.\n\nSilakan cek detailnya di aplikasi {$appName}.\n\nTerima kasih.";
             
-            \App\Services\WhatsAppService::sendMessage($pegawai->telepon, $message);
+            \App\Services\WhatsAppService::sendMessage($pegawai->telepon, $message, $evaluasi->id);
         }
 
         return redirect()->route('evaluasi.index')
@@ -256,5 +256,27 @@ class EvaluasiController extends Controller
         $filename = $export->getFilename();
 
         return response()->download($path, $filename)->deleteFileAfterSend(true);
+    }
+
+    public function resendWhatsApp(EvaluasiBulanan $evaluasi)
+    {
+        $pegawai = $evaluasi->pegawai;
+        if (!$pegawai || !$pegawai->telepon) {
+            return back()->with('error', 'Nomor telepon pegawai tidak ditemukan.');
+        }
+
+        $appName = get_setting('app_name');
+        $bulanName = $evaluasi->nama_bulan;
+        $tahun = $evaluasi->tahun;
+        
+        $message = "Halo *{$pegawai->nama}*,\n\nEvaluasi Kinerja Anda untuk bulan *{$bulanName} {$tahun}* telah selesai dinilai dan di-*FINALISASI* oleh Pejabat Penilai.\n\nSilakan cek detailnya di aplikasi {$appName}.\n\nTerima kasih.";
+        
+        $sent = \App\Services\WhatsAppService::sendMessage($pegawai->telepon, $message, $evaluasi->id);
+
+        if ($sent) {
+            return back()->with('success', 'Notifikasi WhatsApp berhasil dikirim ulang.');
+        }
+
+        return back()->with('error', 'Gagal mengirim notifikasi WhatsApp. Pastikan gateway aktif.');
     }
 }

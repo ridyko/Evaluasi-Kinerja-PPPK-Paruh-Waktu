@@ -17,7 +17,8 @@ class WhatsAppController extends Controller
 
     public function index()
     {
-        return view('wa.index');
+        $logs = \App\Models\WaLog::with('evaluasi.pegawai')->latest()->take(10)->get();
+        return view('wa.index', compact('logs'));
     }
 
     public function status()
@@ -50,10 +51,11 @@ class WhatsAppController extends Controller
 
         // Cari path node secara dinamis jika memungkinkan, atau gunakan default mac
         $nodePath = shell_exec('which node') ? trim(shell_exec('which node')) : '/usr/local/bin/node';
+        $token = get_setting('wa_gateway_token', 'your-secret-token');
         
-        // Jalankan node di background dengan output log yang jelas
+        // Jalankan node di background dengan token dari settings
         $logPath = escapeshellarg($this->gatewayPath . '/output.log');
-        $cmd = "cd " . escapeshellarg($this->gatewayPath) . " && nohup {$nodePath} index.js > {$logPath} 2>&1 &";
+        $cmd = "cd " . escapeshellarg($this->gatewayPath) . " && WA_TOKEN=" . escapeshellarg($token) . " nohup {$nodePath} index.js > {$logPath} 2>&1 &";
         
         exec($cmd);
 
