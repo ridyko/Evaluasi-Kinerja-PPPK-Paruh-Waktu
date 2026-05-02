@@ -67,6 +67,13 @@ Route::middleware('auth')->group(function () {
         // System Settings
         Route::get('/settings', [\App\Http\Controllers\SettingController::class, 'index'])->name('settings.index');
         Route::put('/settings', [\App\Http\Controllers\SettingController::class, 'update'])->name('settings.update');
+
+        // WhatsApp Service Management
+        Route::get('/wa/status', [\App\Http\Controllers\WhatsAppController::class, 'status'])->name('wa.status');
+        Route::post('/wa/start', [\App\Http\Controllers\WhatsAppController::class, 'start'])->name('wa.start');
+        Route::post('/wa/stop', [\App\Http\Controllers\WhatsAppController::class, 'stop'])->name('wa.stop');
+        Route::post('/wa/install', [\App\Http\Controllers\WhatsAppController::class, 'install'])->name('wa.install');
+        Route::get('/wa/qr', [\App\Http\Controllers\WhatsAppController::class, 'qr'])->name('wa.qr');
     });
 
     // ==========================================

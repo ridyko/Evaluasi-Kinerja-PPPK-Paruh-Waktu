@@ -14,17 +14,29 @@ const client = new Client({
     }
 });
 
+let qrData = null;
+
 client.on('qr', (qr) => {
     console.log('SCAN QR CODE INI DENGAN WHATSAPP ANDA:');
     qrcode.generate(qr, { small: true });
+    qrData = qr;
 });
 
 client.on('ready', () => {
     console.log('WhatsApp Gateway is Ready!');
+    qrData = null;
 });
 
-client.on('authenticated', () => {
-    console.log('Authenticated successfully!');
+app.get('/qr', (req, res) => {
+    if (qrData) {
+        res.json({ status: true, qr: qrData });
+    } else {
+        res.json({ status: false, message: 'QR Code not available or already connected' });
+    }
+});
+
+app.get('/status', (req, res) => {
+    res.json({ status: true, connected: client.info ? true : false });
 });
 
 app.post('/send-message', async (req, res) => {

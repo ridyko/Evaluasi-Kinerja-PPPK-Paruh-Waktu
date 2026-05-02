@@ -72,6 +72,22 @@
                     <small style="color: var(--text-secondary); font-size: 0.75rem;">Token keamanan untuk akses API.</small>
                 </div>
 
+                <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 12px; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h4 style="margin: 0; font-size: 0.9rem;">Status Layanan WhatsApp</h4>
+                        <span id="wa-status" class="badge badge-warning">Mengecek...</span>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button type="button" id="btn-wa-start" class="btn btn-success btn-sm" style="flex: 1;"><i class="fas fa-play"></i> Jalankan</button>
+                        <button type="button" id="btn-wa-stop" class="btn btn-danger btn-sm" style="flex: 1;"><i class="fas fa-stop"></i> Matikan</button>
+                    </div>
+                    <button type="button" id="btn-wa-install" class="btn btn-ghost btn-sm" style="width: 100%; margin-top: 0.5rem;"><i class="fas fa-download"></i> Install Dependensi</button>
+                    <div id="wa-qr-container" style="display: none; margin-top: 1.5rem; text-align: center;">
+                        <p style="font-size: 0.8rem; margin-bottom: 0.5rem;">Scan QR Code untuk Menghubungkan:</p>
+                        <div id="wa-qr-code" style="background: #fff; padding: 10px; display: inline-block; border-radius: 8px;"></div>
+                    </div>
+                </div>
+
                 <div style="margin-top: 2rem;">
                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                         <i class="fas fa-save"></i> Simpan Perubahan
@@ -101,4 +117,105 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    const waStatus = document.getElementById('wa-status');
+    const btnStart = document.getElementById('btn-wa-start');
+    const btnStop = document.getElementById('btn-wa-stop');
+    const qrContainer = document.getElementById('wa-qr-container');
+    const qrCodeDiv = document.getElementById('wa-qr-code');
+    let qrGenerator = null;
+
+    function checkStatus() {
+        fetch('{{ route('wa.status') }}')
+            .then(res => res.json())
+            .then(data => {
+                if (data.running) {
+                    if (data.connected) {
+                        waStatus.innerText = 'Terhubung';
+                        waStatus.className = 'badge badge-success';
+                        qrContainer.style.display = 'none';
+                        btnStart.disabled = true;
+                        btnStop.disabled = false;
+                    } else {
+                        waStatus.innerText = 'Menunggu Login';
+                        waStatus.className = 'badge badge-warning';
+                        qrContainer.style.display = 'block';
+                        btnStart.disabled = true;
+                        btnStop.disabled = false;
+                        fetchQR();
+                    }
+                } else {
+                    waStatus.innerText = 'Tidak Berjalan';
+                    waStatus.className = 'badge badge-danger';
+                    qrContainer.style.display = 'none';
+                    btnStart.disabled = false;
+                    btnStop.disabled = true;
+                }
+            });
+    }
+
+    function fetchQR() {
+        fetch('{{ route('wa.qr') }}')
+            .then(res => res.json())
+            .then(data => {
+                if (data.status && data.qr) {
+                    qrCodeDiv.innerHTML = '';
+                    if (!qrGenerator) {
+                        qrGenerator = new QRCode(qrCodeDiv, {
+                            text: data.qr,
+                            width: 200,
+                            height: 200
+                        });
+                    } else {
+                        qrGenerator.clear();
+                        qrGenerator.makeCode(data.qr);
+                    }
+                }
+            });
+    }
+
+    btnStart.addEventListener('click', () => {
+        waStatus.innerText = 'Memulai...';
+        fetch('{{ route('wa.start') }}', {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTimeout(checkStatus, 3000);
+        });
+    });
+
+    btnStop.addEventListener('click', () => {
+        waStatus.innerText = 'Menghentikan...';
+        fetch('{{ route('wa.stop') }}', {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTimeout(checkStatus, 1000);
+        });
+    });
+
+    document.getElementById('btn-wa-install').addEventListener('click', function() {
+        this.disabled = true;
+        this.innerText = 'Menginstall...';
+        fetch('{{ route('wa.install') }}', {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert('Proses instalasi berjalan di background. Silakan tunggu beberapa saat.');
+        });
+    });
+
+    setInterval(checkStatus, 5000);
+    checkStatus();
+</script>
 @endsection
