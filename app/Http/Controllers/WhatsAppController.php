@@ -45,19 +45,28 @@ class WhatsAppController extends Controller
 
     public function start()
     {
-        // Matikan dulu jika ada yang jalan agar token terbaru terpakai
+        // Matikan dulu jika ada yang jalan
         exec("pkill -f 'node index.js'");
         sleep(1);
 
-        // Cari path node secara dinamis
         $nodePath = shell_exec('which node') ? trim(shell_exec('which node')) : '/usr/local/bin/node';
         $token = get_setting('wa_gateway_token') ?: 'your-secret-token';
+        $logPath = $this->gatewayPath . '/output.log';
         
-        // Jalankan node di background dengan token dari settings
-        $logPath = escapeshellarg($this->gatewayPath . '/output.log');
-        $cmd = "cd " . escapeshellarg($this->gatewayPath) . " && WA_TOKEN=" . escapeshellarg($token) . " nohup {$nodePath} index.js > {$logPath} 2>&1 &";
+        // Gunakan path absolut untuk semuanya
+        $cmd = "cd " . escapeshellarg($this->gatewayPath) . " && WA_TOKEN=" . escapeshellarg($token) . " /usr/bin/nohup {$nodePath} index.js > " . escapeshellarg($logPath) . " 2>&1 &";
         
-        exec($cmd);
+        shell_exec($cmd);
+
+        // Beri waktu sebentar lalu cek apakah log tercipta
+        sleep(2);
+        
+        if (!file_exists($logPath)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal memulai layanan. Log tidak tercipta.',
+            ]);
+        }
 
         return response()->json([
             'status' => true,

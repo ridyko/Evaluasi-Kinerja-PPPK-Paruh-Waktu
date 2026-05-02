@@ -72,9 +72,15 @@ app.get('/status', (req, res) => {
 app.post('/send-message', async (req, res) => {
     const { to, message } = req.body;
     const authHeader = req.headers.authorization;
+    const clientIp = req.ip || req.connection.remoteAddress;
 
-    if (!authHeader || authHeader !== `Bearer ${TOKEN}`) {
-        return res.status(401).json({ status: false, message: 'Unauthorized' });
+    // Izinkan localhost tanpa token untuk kemudahan integrasi internal
+    const isLocal = clientIp === '127.0.0.1' || clientIp === '::1' || clientIp.includes('127.0.0.1');
+
+    if (!isLocal) {
+        if (!authHeader || authHeader !== `Bearer ${TOKEN}`) {
+            return res.status(401).json({ status: false, message: 'Unauthorized' });
+        }
     }
 
     if (!isConnected) {
