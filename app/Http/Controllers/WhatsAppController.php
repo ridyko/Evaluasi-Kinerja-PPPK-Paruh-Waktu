@@ -48,22 +48,28 @@ class WhatsAppController extends Controller
             return response()->json(['status' => false, 'message' => 'Layanan sudah berjalan.']);
         }
 
-        // Jalankan node di background
-        $cmd = "cd " . escapeshellarg($this->gatewayPath) . " && nohup node index.js > output.log 2>&1 & echo $!";
-        $pid = shell_exec($cmd);
+        // Cari path node secara dinamis jika memungkinkan, atau gunakan default mac
+        $nodePath = shell_exec('which node') ? trim(shell_exec('which node')) : '/usr/local/bin/node';
+        
+        // Jalankan node di background dengan output log yang jelas
+        $logPath = escapeshellarg($this->gatewayPath . '/output.log');
+        $cmd = "cd " . escapeshellarg($this->gatewayPath) . " && nohup {$nodePath} index.js > {$logPath} 2>&1 &";
+        
+        exec($cmd);
 
         return response()->json([
             'status' => true,
             'message' => 'Layanan sedang diaktifkan...',
-            'pid' => trim($pid)
         ]);
     }
 
     public function stop()
     {
-        // Matikan proses node yang menjalankan index.js di folder wa-gateway
-        $cmd = "pkill -f 'node index.js'";
-        shell_exec($cmd);
+        // Matikan semua proses node yang menjalankan index.js di folder wa-gateway
+        exec("pkill -f 'node index.js'");
+        
+        // Hapus folder auth jika ingin reset total (opsional)
+        // exec("rm -rf " . escapeshellarg($this->gatewayPath . '/auth_info_baileys'));
 
         return response()->json(['status' => true, 'message' => 'Layanan dihentikan.']);
     }
@@ -89,7 +95,8 @@ class WhatsAppController extends Controller
 
     private function isRunning()
     {
-        $output = shell_exec("pgrep -f 'node index.js'");
+        // Cek apakah ada proses node index.js yang berjalan
+        $output = shell_exec("ps aux | grep 'node index.js' | grep -v grep");
         return !empty(trim($output));
     }
 }

@@ -21,6 +21,7 @@ let qrData = null;
 let isConnected = false;
 
 async function connectToWhatsApp() {
+    console.log('Initializing WhatsApp connection...');
     const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys');
     const { version, isLatest } = await fetchLatestBaileysVersion();
 
@@ -28,7 +29,7 @@ async function connectToWhatsApp() {
         version,
         printQRInTerminal: true,
         auth: state,
-        logger: pino({ level: 'silent' }),
+        logger: pino({ level: 'info' }), // Set to info for more logs
     });
 
     sock.ev.on('connection.update', (update) => {
