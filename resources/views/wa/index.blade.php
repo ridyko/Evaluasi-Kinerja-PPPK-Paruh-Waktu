@@ -176,11 +176,17 @@
     }
 
     function stopService() {
+        if(!confirm('Apakah Anda yakin ingin mematikan layanan dan mereset koneksi?')) return;
+        
         showState('loading');
         fetch('{{ route('wa.stop') }}', {
             method: 'POST',
             headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' }
-        }).then(() => setTimeout(checkStatus, 1000));
+        }).then(() => {
+            // Langsung pindah ke state off agar terasa responsif
+            showState('off');
+            qrCodeDiv.innerHTML = '';
+        }).catch(() => showState('off'));
     }
 
     document.getElementById('btn-wa-start').addEventListener('click', startService);
