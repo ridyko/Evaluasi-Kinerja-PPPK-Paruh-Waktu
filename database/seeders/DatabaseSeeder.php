@@ -187,11 +187,11 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Penilai (password = NIP)
+        // Penilai
         User::create([
             'name' => 'Mohamad Sodeli',
-            'email' => 'sodelisman44jkt@yahoo.co.id',
-            'password' => Hash::make('197103051998021002'),
+            'email' => 'pejabat@evakin.test',
+            'password' => Hash::make('password'),
             'role' => 'penilai',
             'pejabat_penilai_id' => $penilai->id,
         ]);
