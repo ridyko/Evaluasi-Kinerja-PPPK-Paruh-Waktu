@@ -181,7 +181,7 @@ class EvaluasiController extends Controller
             $bulanName = $evaluasi->nama_bulan;
             $tahun = $evaluasi->tahun;
             
-            $message = "Halo *{$pegawai->nama}*,\n\nEvaluasi Kinerja Anda untuk bulan *{$bulanName} {$tahun}* telah selesai dinilai dan di-*FINALISASI* oleh Pejabat Penilai.\n\nSilakan cek detailnya di aplikasi {$appName}.\n\nTerima kasih.";
+            $message = "Halo *{$pegawai->nama}*,\n\nEvaluasi Kinerja Anda untuk bulan *{$bulanName} {$tahun}* telah selesai dinilai dan di-*FINALISASI* oleh Pejabat Penilai.\n\nSilakan cek detailnya di aplikasi {$appName}:\nhttp://112.78.34.123/evakin/public/login\n\nTerima kasih.";
             
             \App\Services\WhatsAppService::sendMessage($pegawai->telepon, $message, $evaluasi->id);
         }
@@ -269,7 +269,7 @@ class EvaluasiController extends Controller
         $bulanName = $evaluasi->nama_bulan;
         $tahun = $evaluasi->tahun;
         
-        $message = "Halo *{$pegawai->nama}*,\n\nEvaluasi Kinerja Anda untuk bulan *{$bulanName} {$tahun}* telah selesai dinilai dan di-*FINALISASI* oleh Pejabat Penilai.\n\nSilakan cek detailnya di aplikasi {$appName}.\n\nTerima kasih.";
+        $message = "Halo *{$pegawai->nama}*,\n\nEvaluasi Kinerja Anda untuk bulan *{$bulanName} {$tahun}* telah selesai dinilai dan di-*FINALISASI* oleh Pejabat Penilai.\n\nSilakan cek detailnya di aplikasi {$appName}:\nhttp://112.78.34.123/evakin/public/login\n\nTerima kasih.";
         
         $sent = \App\Services\WhatsAppService::sendMessage($pegawai->telepon, $message, $evaluasi->id);
 
