@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('ni_pppk')->unique();
             $table->string('pangkat_gol')->nullable();
             $table->foreignId('jabatan_id')->constrained('jabatan')->onDelete('restrict');
-            $table->string('unit_kerja')->default('SMK Negeri 2 Jakarta');
+            $table->string('unit_kerja');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

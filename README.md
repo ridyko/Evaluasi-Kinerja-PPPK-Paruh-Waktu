@@ -1,9 +1,9 @@
 # 🚀 EVAKIN (Evaluasi Kinerja)
-### Sistem Evaluasi Kinerja PPPK Paruh Waktu SMK Negeri 2 Jakarta
+### Sistem Evaluasi Kinerja PPPK Paruh Waktu
 
 ![Banner EVAKIN](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
 
-**EVAKIN** adalah platform manajemen kinerja modern yang dirancang khusus untuk mengelola, memantau, dan mengevaluasi kinerja Pegawai Pemerintah dengan Perjanjian Kerja (PPPK) Paruh Waktu di lingkungan SMK Negeri 2 Jakarta.
+**EVAKIN** adalah platform manajemen kinerja modern yang dirancang khusus untuk mengelola, memantau, dan mengevaluasi kinerja Pegawai Pemerintah dengan Perjanjian Kerja (PPPK) Paruh Waktu di lingkungan organisasi Anda.
 
 ---
 
@@ -81,10 +81,10 @@ Gunakan akun berikut setelah instalasi selesai untuk masuk ke sistem:
 
 ## 📝 Lisensi
 
-Aplikasi ini dikembangkan untuk kebutuhan internal **SMK Negeri 2 Jakarta**. Seluruh hak cipta dilindungi.
+Aplikasi ini dikembangkan untuk kebutuhan internal organisasi. Seluruh hak cipta dilindungi.
 
 ---
 
 <p align="center">
-  Dibuat dengan ❤️ oleh Rio Widyatmoko untuk SMK Negeri 2 Jakarta
+  Dibuat dengan ❤️ oleh Rio Widyatmoko
 </p>

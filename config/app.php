@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'EVAKIN'),
+    'organization_name' => env('ORGANIZATION_NAME', 'Nama Organisasi'),
+    'organization_slogan' => env('ORGANIZATION_SLOGAN', 'Sistem Evaluasi Kinerja Pegawai'),
 
     'installed' => env('APP_INSTALLED', false),
     'installer_key' => env('INSTALLER_KEY'),

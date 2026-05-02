@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             'nip' => '197501012000011001',
             'pangkat_gol' => 'Pembina (IV/A)',
             'jabatan' => 'Kepala Sub Bagian Tata Usaha',
-            'unit_kerja' => 'SMK Negeri 2 Jakarta',
+            'unit_kerja' => config('app.organization_name'),
         ]);
 
         // ==========================================
@@ -162,7 +162,7 @@ class DatabaseSeeder extends Seeder
                 'ni_pppk' => $data['ni_pppk'],
                 'pangkat_gol' => $data['pangkat_gol'],
                 'jabatan_id' => $data['jabatan_id'],
-                'unit_kerja' => 'SMK Negeri 2 Jakarta',
+                'unit_kerja' => config('app.organization_name'),
             ]);
 
             // Auto-create user account (password = NI PPPK)

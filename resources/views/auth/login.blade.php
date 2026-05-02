@@ -249,8 +249,8 @@
             <div class="login-logo">
                 <span>EK</span>
             </div>
-            <h1>E-Kinerja</h1>
-            <p>Sistem Evaluasi Kinerja Bulanan Pegawai<br>SMK Negeri 2 Jakarta</p>
+            <h1>{{ config('app.name') }}</h1>
+            <p>{{ config('app.organization_slogan') }}<br>{{ config('app.organization_name') }}</p>
         </div>
 
         <div class="login-card">

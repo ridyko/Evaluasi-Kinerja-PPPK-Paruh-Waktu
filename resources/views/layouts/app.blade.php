@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'E-Kinerja') — SMKN 2 Jakarta</title>
-    <meta name="description" content="Sistem Evaluasi Kinerja Bulanan Pegawai PPPK SMKN 2 Jakarta">
+    <title>@yield('title', config('app.name')) — {{ config('app.organization_name') }}</title>
+    <meta name="description" content="{{ config('app.organization_slogan') }} {{ config('app.organization_name') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -597,10 +597,10 @@
     {{-- Sidebar --}}
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
-            <div class="logo-icon">EK</div>
+            <div class="logo-icon">{{ substr(config('app.name'), 0, 2) }}</div>
             <div>
-                <div class="logo-text">E-Kinerja</div>
-                <div class="logo-sub">SMKN 2 Jakarta</div>
+                <div class="logo-text">{{ config('app.name') }}</div>
+                <div class="logo-sub">{{ config('app.organization_name') }}</div>
             </div>
         </div>
 

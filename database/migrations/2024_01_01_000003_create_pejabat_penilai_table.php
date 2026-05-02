@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->string('pangkat_gol')->nullable();
             $table->string('jabatan')->nullable();
-            $table->string('unit_kerja')->default('SMK Negeri 2 Jakarta');
+            $table->string('unit_kerja');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
